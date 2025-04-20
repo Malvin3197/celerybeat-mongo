@@ -162,7 +162,8 @@ class MongoScheduler(Scheduler):
         d = {}
         for doc in self.Model.objects.filter(enabled=True):
             d[doc.name] = self.Entry(doc)
-            logger.info({doc.name})
+        
+        logger.info(f"{d}")
         return d
 
     @property
