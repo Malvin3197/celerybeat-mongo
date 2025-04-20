@@ -142,7 +142,7 @@ class MongoScheduler(Scheduler):
         self._last_updated = None
         Scheduler.__init__(self, app, *args, **kwargs)
         self.max_interval = (kwargs.get('max_interval')
-                             or self.app.conf.CELERYBEAT_MAX_LOOP_INTERVAL or 5)
+                             or self.app.conf.beat_max_loop_interval or 5)
 
     def setup_schedule(self):
         pass
