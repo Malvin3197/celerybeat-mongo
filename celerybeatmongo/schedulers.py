@@ -150,25 +150,29 @@ class MongoScheduler(Scheduler):
     def requires_update(self):
         """check whether we should pull an updated schedule
         from the backend database"""
+        logger.info("Requires Update")
         if not self._last_updated:
             return True
         return self._last_updated + self.UPDATE_INTERVAL < datetime.datetime.now()
 
     def get_from_database(self):
+        logger.info("Getting From Databae")
         self.sync()
         d = {}
         for doc in self.Model.objects.filter(enabled=True):
             d[doc.name] = self.Entry(doc)
+            logger.info({doc.name})
         return d
 
     @property
     def schedule(self):
+        logger.info("Grabbing Schedule")
         if self.requires_update():
             self._schedule = self.get_from_database()
             self._last_updated = datetime.datetime.now()
         return self._schedule
 
     def sync(self):
-        logger.debug('Writing entries...')
+        logger.info('Writing entries...')
         for entry in self._schedule.values():
             entry.save()
