@@ -74,7 +74,7 @@ class MongoScheduleEntry(ScheduleEntry):
             # figure out when the schedule would run next anyway
             _, n = self.schedule.is_due(self.last_run_at)
             return True, n
-        logger.info(f"{self.name}- Due - {self.schedule.is_due(self.last_run_at)})"
+        logger.info(f"{self.name}- Due - {self.schedule.is_due(self.last_run_at)}")
         return self.schedule.is_due(self.last_run_at)
 
     def __repr__(self):
